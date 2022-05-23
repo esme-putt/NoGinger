@@ -2,6 +2,8 @@ package com.example.noginger.Feature.RecipeSearch
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
@@ -18,6 +20,7 @@ import com.example.noginger.api.SpoonacularRetriever
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Headers
 
 class RecipeSearchActivity: AppCompatActivity() {
 
@@ -57,7 +60,12 @@ class RecipeSearchActivity: AppCompatActivity() {
             if (isNetworkConnected()) {
                 val dietString = intent.getStringExtra(DIET)!!
                 val cantIncludeSearchString = intent.getStringExtra(CANT_INCLUDE)!!
-                spoonacularRetriever.getRecipes(callback, dietString, searchKeywordEditText.text.toString(), cantIncludeSearchString, includeIngredientEditText.text.toString())
+
+                val ai: ApplicationInfo = applicationContext.packageManager
+                    .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
+                val apiKey: String = "${ai.metaData["spoonacularApiKey"]}"
+
+                spoonacularRetriever.getRecipes(callback, apiKey, dietString, searchKeywordEditText.text.toString(), cantIncludeSearchString, includeIngredientEditText.text.toString())
             } else {
                 AlertDialog.Builder(this).setTitle("No internet connection")
                     .setMessage("Please check your internet connection and try again")

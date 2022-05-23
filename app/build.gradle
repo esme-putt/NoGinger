@@ -4,6 +4,7 @@ plugins {
     id 'com.squareup.sqldelight'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.secrets_gradle_plugin' version '0.4'
 }
 
 android {

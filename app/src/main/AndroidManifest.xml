@@ -27,6 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name = "spoonacularApiKey"
+            android:value="${SPOONACULAR_API_KEY}"/>
     </application>
 
 </manifest>

@@ -21,11 +21,13 @@ class SpoonacularRetriever {
     }
 
     fun getRecipes(callback: Callback<RecipeResult>,
+                   apiKey: String = "",
                    diet: String = "",
                    searchKeyword: String = "",
                    excludeIngredients: String = "",
                    includeIngredients: String = "") {
         val call = service.searchRecipes(
+            apiKey = apiKey,
             searchKeyword = searchKeyword,
             diet = diet,
             includeIngredients = includeIngredients,
@@ -33,8 +35,8 @@ class SpoonacularRetriever {
         call.enqueue(callback)
     }
 
-//    override fun getOkHttpClientBuilder(): OkHttpClient.Builder {
-//        val okHttpBuilder = super.getOkHttpClientBuilder()
+//    fun getOkHttpClientBuilder(): OkHttpClient.Builder {
+//        val okHttpBuilder = getOkHttpClientBuilder()
 //        okHttpBuilder.addInterceptor { chain ->
 //            val request = chain.request().newBuilder()
 //            val originalHttpUrl = chain.request().url
