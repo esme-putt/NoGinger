@@ -1,4 +1,4 @@
-# NoGinger
+# No Ginger
 
 <b>WIP: An Android app that takes the stress out of remembering and managing dietary requirements when cooking for a group of people. </b>
 
