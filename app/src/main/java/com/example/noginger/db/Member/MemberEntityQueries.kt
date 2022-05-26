@@ -8,7 +8,8 @@ public interface MemberEntityQueries: Transacter {
         id: Long,
         name: String,
         cantEat: String?,
-        diet: String?
+        diet: String?,
+        intolerances: String?
     ) -> T): Query<T>
 
     public fun getMemberById(id: Long): Query<MemberEntity>
@@ -17,7 +18,8 @@ public interface MemberEntityQueries: Transacter {
         id: Long,
         name: String,
         cantEat: String?,
-        diet: String?
+        diet: String?,
+        intolerances: String?
     ) -> T): Query<T>
 
     public fun getAllMembers(): Query<MemberEntity>
@@ -26,7 +28,8 @@ public interface MemberEntityQueries: Transacter {
         id: Long?,
         name: String,
         cantEat: String?,
-        diet: String?
+        diet: String?,
+        intolerances: String?
     ): Unit
 
     public fun deletePersonById(id: Long): Unit

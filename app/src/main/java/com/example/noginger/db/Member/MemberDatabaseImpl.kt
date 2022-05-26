@@ -32,7 +32,8 @@ private class MemberDatabaseImpl(
                 |   id INTEGER NOT NULL PRIMARY KEY,
                 |   name TEXT NOT NULL,
                 |   cantEat TEXT,
-                |   diet TEXT
+                |   diet TEXT,
+                |   intolerances TEXT
                 |)
                 """.trimMargin(), 0)
         }
@@ -56,23 +57,26 @@ private class MemberEntityQueriesImpl(
         id: Long,
         name: String,
         cantEat: String?,
-        diet: String?
+        diet: String?,
+        intolerances: String?
     ) -> T): Query<T> = GetMemberByIdQuery(id) { cursor ->
         mapper(
             cursor.getLong(0)!!,
             cursor.getString(1)!!,
             cursor.getString(2)!!,
-            cursor.getString(3)!!
+            cursor.getString(3)!!,
+            cursor.getString(4)!!
         )
     }
 
     public override fun getMemberById(id: Long): Query<MemberEntity> = getMemberById(id) { id_,
-                                                                                           name, cantEat, diet ->
+                                                                                           name, cantEat, diet, intolerances ->
        MemberEntity(
            id_,
            name,
            cantEat,
-           diet
+           diet,
+           intolerances
        )
     }
 
@@ -80,7 +84,8 @@ private class MemberEntityQueriesImpl(
         id: Long,
         name: String,
         cantEat: String?,
-        diet: String?
+        diet: String?,
+        intolerances: String?
     ) -> T): Query<T> = Query(-1418113920, getAllMembers, driver, "memberEntity.sq", "getAllMembers",
         """
         |SELECT *
@@ -90,17 +95,19 @@ private class MemberEntityQueriesImpl(
             cursor.getLong(0)!!,
             cursor.getString(1)!!,
             cursor.getString(2),
-            cursor.getString(3)
+            cursor.getString(3),
+            cursor.getString(4)
         )
     }
 
-    public override fun getAllMembers(): Query<MemberEntity> = getAllMembers { id, name, cantEat, diet ->
+    public override fun getAllMembers(): Query<MemberEntity> = getAllMembers { id, name, cantEat, diet, intolerances ->
         print("Calling get all members - smaller func")
         MemberEntity(
             id,
             name,
             cantEat,
-            diet
+            diet,
+            intolerances
         )
     }
 
@@ -108,17 +115,19 @@ private class MemberEntityQueriesImpl(
         id: Long?,
         name: String,
         cantEat: String?,
-        diet: String?
+        diet: String?,
+        intolerances: String?
     ): Unit {
         driver.execute(-2037177311, """
         |INSERT OR REPLACE
         |INTO memberEntity
-        |VALUES(?, ?, ?, ?)
+        |VALUES(?, ?, ?, ?, ?)
         """.trimMargin(), 3) {
             bindLong(1, id)
             bindString(2, name)
             bindString(3, cantEat)
             bindString(4, diet)
+            bindString(5, intolerances)
         }
         notifyQueries(-2037177311, {
             database.memberEntityQueries.getMemberById + database.memberEntityQueries.getAllMembers

@@ -21,6 +21,7 @@ class MembersAdapter(private val mMembers: List<MemberEntity>): RecyclerView.Ada
         val nameTextView = itemView.findViewById<TextView>(R.id.member_name)
         val dietTextView = itemView.findViewById<TextView>(R.id.member_diet)
         val cantEatTextView = itemView.findViewById<TextView>(R.id.member_cant_eat)
+        val intoleranceTextView = itemView.findViewById<TextView>(R.id.member_intolerances)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,6 +39,8 @@ class MembersAdapter(private val mMembers: List<MemberEntity>): RecyclerView.Ada
         dietTextView.setText(member.diet)
         val cantEatTextView = holder.cantEatTextView
         cantEatTextView.setText(member.cantEat)
+        val intoleranceTextView = holder.intoleranceTextView
+        intoleranceTextView.setText(member.intolerances)
     }
 
     override fun getItemCount(): Int {

@@ -12,9 +12,9 @@ class MemberDataSourceImpl(db: MemberDatabase): MemberDataSource {
 
     private val queries = db.memberEntityQueries
 
-    override suspend fun insertMember(name: String, cantEat: String?, diet: String?, id: Long?) {
+    override suspend fun insertMember(name: String, cantEat: String?, diet: String?, intolerances: String?, id: Long?) {
         return withContext(Dispatchers.IO) {
-            queries.insertMember(id, name, cantEat, diet)
+            queries.insertMember(id, name, cantEat, diet, intolerances)
         }
     }
 

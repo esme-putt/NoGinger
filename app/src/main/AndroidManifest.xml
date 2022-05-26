@@ -15,9 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NoGinger">
         <activity
+            android:name=".Feature.RecipeList.RecipeListActivity"
+            android:exported="false"
+            android:parentActivityName=".Feature.RecipeSearch.RecipeSearchActivity" />
+        <activity
             android:name=".Feature.RecipeSearch.RecipeSearchActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -27,9 +31,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
-            android:name = "spoonacularApiKey"
-            android:value="${SPOONACULAR_API_KEY}"/>
+            android:name="spoonacularApiKey"
+            android:value="${SPOONACULAR_API_KEY}" />
     </application>
 
 </manifest>

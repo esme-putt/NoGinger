@@ -9,6 +9,7 @@ interface SpoonacularService {
     @GET("recipes/complexSearch")
     fun searchRecipes(
         @Query("apiKey") apiKey: String,
+        @Query("intolerances") intolerances: String,
         @Query("query") searchKeyword: String,
         @Query("diet") diet: String,
         @Query("excludeIngredients") excludeIngredients: String,

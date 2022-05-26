@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+const val INTOLERANCE = "com.example.noginger.INTOLERANCE"
 const val DIET = "com.example.noginger.DIET"
 const val CANT_INCLUDE = "com.example.noginger.CANT_INCLUDE"
 
@@ -73,12 +74,24 @@ class MainActivity: AppCompatActivity() {
         val submitButton: Button = addNewPersonView.findViewById(R.id.submitButton)
         submitButton.setOnClickListener {
             CoroutineScope(IO).launch {
+                var intoleranceInputCheckBoxes = ArrayList<CheckBox>()
+                intoleranceInputCheckBoxes.add(addNewPersonView.findViewById<CheckBox>(R.id.checkbox_dairy))
+                intoleranceInputCheckBoxes.add(addNewPersonView.findViewById<CheckBox>(R.id.checkbox_gluten))
+                intoleranceInputCheckBoxes.add(addNewPersonView.findViewById<CheckBox>(R.id.checkbox_soy))
+                intoleranceInputCheckBoxes.add(addNewPersonView.findViewById<CheckBox>(R.id.checkbox_seafood))
+                intoleranceInputCheckBoxes.add(addNewPersonView.findViewById<CheckBox>(R.id.checkbox_shellfish))
+
+                var memberIntolerances = ArrayList<String>()
+                for (i in 0 until intoleranceInputCheckBoxes.size) {
+                    if (intoleranceInputCheckBoxes.get(i).isChecked) {
+                        memberIntolerances += intoleranceInputCheckBoxes.get(i).text.toString()
+                    }
+                }
+                val memberIntolerancesString = memberIntolerances.joinToString(", ")
+
                 var dietInputCheckBoxes = ArrayList<CheckBox>()
-                dietInputCheckBoxes.add(addNewPersonView.findViewById<CheckBox>(R.id.checkbox_gluten_free))
-                dietInputCheckBoxes.add(addNewPersonView.findViewById<CheckBox>(R.id.checkbox_vegetarian))
                 dietInputCheckBoxes.add(addNewPersonView.findViewById<CheckBox>(R.id.checkbox_vegan))
-                dietInputCheckBoxes.add(addNewPersonView.findViewById<CheckBox>(R.id.checkbox_paleo))
-                dietInputCheckBoxes.add(addNewPersonView.findViewById<CheckBox>(R.id.checkbox_low_fodmap))
+                dietInputCheckBoxes.add(addNewPersonView.findViewById<CheckBox>(R.id.checkbox_vegetarian))
 
                 var memberDietaries = ArrayList<String>()
                 for (i in 0 until dietInputCheckBoxes.size) {
@@ -87,7 +100,7 @@ class MainActivity: AppCompatActivity() {
                     }
                 }
                 val memberDietariesString = memberDietaries.joinToString(", ")
-                addMember(nameInput.text.toString(), cantEatInput.text.toString(), memberDietariesString)
+                addMember(nameInput.text.toString(), cantEatInput.text.toString(), memberDietariesString, memberIntolerancesString)
             }
             dialog.hide()
         }
@@ -106,6 +119,7 @@ class MainActivity: AppCompatActivity() {
             if (view.findViewById<CheckBox>(R.id.member_select_button).isChecked) {
                 cantInclude.add(view.findViewById<TextView>(R.id.member_cant_eat).text.toString())
                 diet.add(view.findViewById<TextView>(R.id.member_diet).text.toString())
+                diet.add(view.findViewById<TextView>(R.id.member_intolerances).text.toString())
             }
         }
 
@@ -114,12 +128,16 @@ class MainActivity: AppCompatActivity() {
 
         var cantIncludeString = cantInclude.joinToString(", ")
         var dietString = diet.joinToString(", ")
+        var intoleranceString = diet.joinToString(", ")
 
         if (cantIncludeString == null) {
             cantIncludeString = ""
         }
         if (dietString == null) {
             dietString = ""
+        }
+        if (intoleranceString == null) {
+            intoleranceString = ""
         }
 
         val cantIncludeTextView = createNewMealView.findViewById<TextView>(R.id.dontIncludeTextView)
@@ -134,6 +152,7 @@ class MainActivity: AppCompatActivity() {
             val intent = Intent(this, RecipeSearchActivity::class.java).apply {
                 putExtra(DIET, dietString)
                 putExtra(CANT_INCLUDE, cantIncludeString)
+                putExtra(INTOLERANCE, intoleranceString)
             }
             startActivity(intent)
         }
@@ -144,9 +163,9 @@ class MainActivity: AppCompatActivity() {
         }
     }
 
-    suspend fun addMember(nameInput: String, cantEatInput: String?, dietInput: String?) {
+    suspend fun addMember(nameInput: String, cantEatInput: String?, dietInput: String?, intolerances: String?) {
         withContext(IO) {
-            dataSource.insertMember(nameInput, cantEatInput, dietInput)
+            dataSource.insertMember(nameInput, cantEatInput, dietInput, intolerances)
         }
     }
 }

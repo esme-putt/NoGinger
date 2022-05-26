@@ -7,5 +7,5 @@ interface MemberDataSource {
 
     fun getAllMembers(): Flow<List<MemberEntity>>
 
-    suspend fun insertMember(name: String, cantEat: String?, diet: String?, id: Long? = null)
+    suspend fun insertMember(name: String, cantEat: String?, diet: String?, intolerances: String?, id: Long? = null)
 }

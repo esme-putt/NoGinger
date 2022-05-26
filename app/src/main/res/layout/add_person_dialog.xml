@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_root"
@@ -38,31 +38,48 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-        <CheckBox android:id="@+id/checkbox_gluten_free"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gluten free" />
-        <CheckBox android:id="@+id/checkbox_vegetarian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vegetarian" />
         <CheckBox android:id="@+id/checkbox_vegan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Vegan" />
-        <CheckBox android:id="@+id/checkbox_paleo"
+        <CheckBox android:id="@+id/checkbox_vegetarian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Paleo" />
-        <CheckBox android:id="@+id/checkbox_low_fodmap"
+            android:text="Vegetarian" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/intoleranceCheckboxes"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/dietaryCheckboxes"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <CheckBox android:id="@+id/checkbox_dairy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Low FODMAP" />
+            android:text="Dairy" />
+        <CheckBox android:id="@+id/checkbox_gluten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gluten" />
+        <CheckBox android:id="@+id/checkbox_soy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Soy" />
+        <CheckBox android:id="@+id/checkbox_seafood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seafood" />
+        <CheckBox android:id="@+id/checkbox_shellfish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shellfish" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/cantEatTextView"
-        app:layout_constraintTop_toBottomOf="@id/dietaryCheckboxes"
+        app:layout_constraintTop_toBottomOf="@id/intoleranceCheckboxes"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,4 +109,4 @@
         android:text="Submit"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cantEatUserInput" />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

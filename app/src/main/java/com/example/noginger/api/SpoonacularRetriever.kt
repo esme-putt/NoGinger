@@ -23,28 +23,17 @@ class SpoonacularRetriever {
     fun getRecipes(callback: Callback<RecipeResult>,
                    apiKey: String = "",
                    diet: String = "",
+                   intolerances: String = "",
                    searchKeyword: String = "",
                    excludeIngredients: String = "",
                    includeIngredients: String = "") {
         val call = service.searchRecipes(
             apiKey = apiKey,
-            searchKeyword = searchKeyword,
+            intolerances = intolerances,
             diet = diet,
+            searchKeyword = searchKeyword,
             includeIngredients = includeIngredients,
             excludeIngredients = excludeIngredients)
         call.enqueue(callback)
     }
-
-//    fun getOkHttpClientBuilder(): OkHttpClient.Builder {
-//        val okHttpBuilder = getOkHttpClientBuilder()
-//        okHttpBuilder.addInterceptor { chain ->
-//            val request = chain.request().newBuilder()
-//            val originalHttpUrl = chain.request().url
-//            val url = originalHttpUrl.newBuilder().addQueryParameter("api_key", "your api key value").build()
-//            request.url(url)
-//            val response = chain.proceed(request.build())
-//            return@addInterceptor response
-//        }
-//        return okHttpBuilder
-//    }
 }

@@ -14,42 +14,20 @@
     >
 
     <LinearLayout
-        android:orientation="vertical"
         android:paddingRight="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/recipe_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp" />
         <TextView
-            android:id="@+id/member_name"
+            android:id="@+id/recipe_title"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             />
-        <TextView
-            android:id="@+id/member_diet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <TextView
-            android:id="@+id/member_intolerances"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <TextView
-            android:id="@+id/member_cant_eat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
     </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/member_select_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        />
 </com.google.android.flexbox.FlexboxLayout>
