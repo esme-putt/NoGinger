@@ -14,14 +14,14 @@
     >
 
     <LinearLayout
-        android:paddingRight="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/recipe_image"
-            android:layout_width="200dp"
-            android:layout_height="200dp" />
+            android:paddingRight="10dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
         <TextView
             android:id="@+id/recipe_title"
             android:textStyle="bold"
